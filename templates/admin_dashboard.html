@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+    <h2>Welcome {{ user.email }}</h2>
+    {% if bank %}
+        <h3>Edit Bank Info</h3>
+        <form method="POST" action="{{ url_for('edit_bank', bank_id=bank.id) }}">
+            <input name="name" value="{{ bank.name }}" placeholder="Bank Name">
+            <input name="address" value="{{ bank.address }}" placeholder="Address">
+            <input name="logo" value="{{ bank.logo }}" placeholder="Logo URL">
+            <input name="theme_color" value="{{ bank.theme_color }}" placeholder="Theme Color">
+            <button type="submit">Update</button>
+        </form>
+
+        <h3>Loan Types</h3>
+        {% for loan in bank.loan_types %}
+            <form method="POST" action="{{ url_for('edit_loan_type', loan_id=loan.id) }}">
+                <input name="term_months" value="{{ loan.term_months }}" placeholder="Term">
+                <input name="min_amount" value="{{ loan.min_amount }}" placeholder="Min">
+                <input name="max_amount" value="{{ loan.max_amount }}" placeholder="Max">
+                <input name="interest_rate" value="{{ loan.interest_rate }}" placeholder="Interest">
+                <button type="submit">Update</button>
+            </form>
+        {% endfor %}
+
+        <form method="POST" action="{{ url_for('add_loan_type', bank_id=bank.id) }}">
+            <input name="name" placeholder="New Loan Name">
+            <input name="term_months" placeholder="Term in Months">
+            <input name="min_amount" placeholder="Min Amount">
+            <input name="max_amount" placeholder="Max Amount">
+            <input name="interest_rate" placeholder="Interest Rate">
+            <button type="submit">Add Loan</button>
+        </form>
+    {% endif %}
+</body>
+</html>

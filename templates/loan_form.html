@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Apply for Loan</title></head>
+<body>
+    <h2>Apply at {{ bank.name }}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input name="name" placeholder="Full Name" required><br>
+        <input name="email" placeholder="Email" required><br>
+        <input name="phone" placeholder="Phone" required><br>
+        <label>Are you an existing account holder?</label>
+        <select name="has_account">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+        <input name="account_number" placeholder="Account Number (if yes)"><br>
+        <label>Loan Type</label>
+        <select name="loan_type_id">
+            {% for loan in loan_types %}
+                <option value="{{ loan.id }}">{{ loan.name }}</option>
+            {% endfor %}
+        </select><br>
+        <input name="amount_requested" placeholder="Amount Requested" required><br>
+        <label>Upload KYC documents</label><br>
+        <input type="file" name="kyc_1_1"><br>
+        <button type="submit">Apply</button>
+    </form>
+</body>
+</html>
